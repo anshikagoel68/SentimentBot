@@ -1,4 +1,4 @@
-# Chatbot with Sentiment Analysis(SentimentBot)
+# Chatbot with Sentiment Analysis (SentimentBot)
 
 A production-grade, modular Python chatbot that conducts conversations and performs comprehensive sentiment analysis.
 
@@ -234,4 +234,5 @@ Interactive CLI interface:
 * **TextBlob**: Polarity and subjectivity analysis
 * **unittest**: Comprehensive test framework
 * **JSON**: Data export and serialization
+
 
