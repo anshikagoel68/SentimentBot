@@ -132,8 +132,6 @@ Once the chatbot is running, you can:
 
 
 
-
-
            CONVERSATION-LEVEL ANALYSIS - TIER 1
 
 
@@ -171,24 +169,15 @@ Main sentiment analysis engine with:
 * ConversationSentiment: Data class for conversation analysis (Tier 1)
 * Dual-engine analysis using VADER and TextBlob
 * Trend analysis function
-#### Key Methods  
-* analyze_statement(text) - Tier 2: Analyze single message.
-* analyze_conversation(messages) - Tier 1: Analyze full conversation.
-* export_results(analysis) - Export to JSON
 
 **2. chatbot.py**
 
 Conversation management and response generation:
 * Chatbot: Main chatbot class
 * Conversation history management
-* Context-aware response generation
-* Modular architecture for easy extensio
-#### Key Methods  
-* add_message(role, content) - Add to conversation
-* get_history() - Retrieve full conversation
-* generate_response(user_input) - Generate contextual response
-* get_summary() - Get conversation statistics
-
+* Stores message metadata and stats
+* Calls the sentiment analyzer for each message
+  
 **3. python main.py**
 
 Interactive CLI interface:
@@ -207,12 +196,12 @@ Interactive CLI interface:
 **Dual-Engine Approach:**
 
 **VADER(Valence Aware Dictionary and sEntiment Reasoner)**
-* Specialized for social media and informal text
+* Specialized for social media, emojis and informal text
 * Provides compound score and component scores
 * Good for understanding intensity
 
 **TextBlob**
-* Provides polarity (-1 to 1) and subjectivity (0 to 1)
+* Provides polarity (-1 to 1) and subjectivity (0 to 1), better on formal/longer text.
 * Complements VADER for comprehensive analysis
 * Captures subjective language
 
@@ -234,5 +223,6 @@ Interactive CLI interface:
 * **TextBlob**: Polarity and subjectivity analysis
 * **unittest**: Comprehensive test framework
 * **JSON**: Data export and serialization
+
 
 
