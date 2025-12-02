@@ -138,8 +138,8 @@ Interactive CLI interface:
   
 **2. Create a Virtual Environment:**
 * python -m venv venv
-* source venv/bin/activate      # Linux/macOS
-* venv\Scripts\activate         # Windows
+* source venv/bin/activate        # Linux/macOS
+* venv\Scripts\activate           # Windows
 
 **3. Install dependencies:**
 * pip install -r requirements.txt
@@ -224,6 +224,7 @@ Emotional Progression:
 * **TextBlob**: Polarity and subjectivity analysis
 * **unittest**: Comprehensive test framework
 * **JSON**: Data export and serialization
+
 
 
 
