@@ -1,39 +1,40 @@
 # Chatbot with Sentiment Analysis (SentimentBot)
 
-A production-grade, modular Python chatbot that conducts conversations and performs comprehensive sentiment analysis.
+This project features a production-grade, modular Python chatbot that not only responds intelligently but also understands user emotions through comprehensive, multi-layer sentiment analysis. Unlike traditional chatbots that treat all text the same, this system evaluates how the user feels throughout the conversation.
 
-## Goal 
+To achieve this, the chatbot performs sentiment analysis at two levels:
 
-Most of the chatbots just reply, but they don’t understand emotions. They treat everything as just text, without really knowing if the user is happy, disappointed, stressed, or excited.
+### Level 1- Conversation-Level Analysis
 
-My chatbot is designed to fix that by performing sentiment analysis at two levels:
+At the macro level, the chatbot analyzes the entire conversation history to:
 
-### Tier 1- Conversation-Level Analysis
+* Compute an overall sentiment score (from -1 to +1)
+* Count positive, negative, and neutral messages
+* Detect emotional trends (improving, declining, or stable)
 
-* It keeps the full conversation history.
-* At the end, it analyzes all user messages and reports:
-* Overall sentiment from -1 (negative) to +1 (positive),
-* How many messages were positive, negative, or neutral,
-* And whether the mood improved, declined, or stayed stable.
+This provides a complete picture of the user’s emotional journey.
 
-### Tier 2- Statement-Level Analysis
+### Level 2- Statement-Level Analysis
 
-* For every user message, it shows
-* Sentiment label (positive / negative / neutral).
-* A numeric score and confidence,
-* Subjectivity and other components.
+At the micro level, each individual message is assessed for:
 
-This allows tracking mood shifts across the chat. So you get both the big-picture mood and per-message analysis.
+* Sentiment label (positive / negative / neutral)
+* Polarity score and confidence
+* Subjectivity and other linguistic features
 
+This enables fine-grained tracking of how the user’s mood shifts message by message.
 
-### Additional Enhancements
-* **Modular Architecture**: Clean separation of concerns (chatbot, analyzer, interface)
-* **Production-Grade Code**: Comprehensive error handling and logging
-* **Full Test Suite**: 20+ unit tests covering both tiers
-* **JSON Export**: Save sentiment analysis results for later analysis
-* **Session Summaries**: Statistics about conversation duration and message counts
-* **Subjectivity Scoring**: Measures how subjective user messages are
-* **Interactive CLI**: User-friendly command-line interface with help
+**Together, these two layers allow the chatbot to understand not just what the user says—but how they feel—resulting in a more emotionally aware conversational experience.**
+
+## Features
+
+* **Multi-layer Sentiment Analysis:** Uses both VADER and TextBlob for precise emotional understanding.
+* **Conversation-Level Insights:** Aggregates overall sentiment, message distribution, and mood trends.
+* **Statement-Level Insights:** Per-message polarity, subjectivity, sentiment label, and confidence.
+* **Modular Architecture:** Clean separation of sentiment logic, chatbot logic, and user interface.
+* **Conversation History Tracking:** Stores all messages along with metadata and sentiment metrics.
+* **JSON Export:** Saves full chat sessions with all sentiment analysis results.
+* **Production-Ready Structure:** Well-organized, testable, and extensible design.
 
 ## Project Structure
 
@@ -71,27 +72,85 @@ SentimentBot/
     
     ├── sentiment_analyzer.cpython-314.pyc
 
+## Module Overview
 
-## Installation
+**1. sentiment_analyzer.py**
 
-### Prerequisites
-* Python 3.7 or higher
-* pip (Python package manager)
+Main sentiment analysis engine with: 
+* SentimentAnalyzer: Main analyzer class
+* SentimentResult: Data class for individual message analysis (Tier 2)
+* ConversationSentiment: Data class for conversation analysis (Tier 1)
+* Dual-engine analysis using VADER and TextBlob
+* Trend analysis function
 
-### Setup
+**2. chatbot.py**
+
+Conversation management and response generation:
+* Chatbot: Main chatbot class
+* Conversation history management
+* Stores message metadata and stats
+* Calls the sentiment analyzer for each message
+  
+**3. python main.py**
+
+Interactive CLI interface:
+* ChatbotInterface: Main user-facing interface
+* Interactive command loop
+* Statement and conversation sentiment display
+* Export functionality
+
+**4. tests**
+
+* Tests for analyzer, chatbot, and edge cases
+* Covers positive/negative/neutral detection
+* Tests trend detection & error handling
+
+## Algorithm Details 
+**Dual-Engine Approach:**
+
+**VADER(Valence Aware Dictionary and sEntiment Reasoner)**
+* Specialized for social media, emojis and informal text
+* Provides compound score and component scores
+* Good for understanding intensity
+
+**TextBlob**
+* Provides polarity (-1 to 1) and subjectivity (0 to 1), better on formal/longer text.
+* Complements VADER for comprehensive analysis
+* Captures subjective language
+
+### Classification Thresholds
+* Positive: compound score ≥ 0.05
+* Negative: compound score ≤ -0.05
+* Neutral: -0.05 < compound score < 0.05
+
+### Trend Detection
+* Splits conversation in half
+*  Compares average sentiment of first half vs. second half
+*  Threshold: 0.1 point difference for trend change
+*  Categories: Improving, Declining, Stable
+
+
+## Installation & Setup
 
 **1. Clone the repository:**
-* git clone (repository-url)
-* cd SentimentBot
+* git clone https://github.com/yourusername/sentimentbot.git
+* cd sentimentbot
+  
+**2. Create a Virtual Environment:**
+* python -m venv venv
+* source venv/bin/activate      # Linux/macOS
+* venv\Scripts\activate         # Windows
 
-**2. Install dependencies:**
+**3. Install dependencies:**
 * pip install -r requirements.txt
 
-**3. Run Interactive Chatbot**
+**4. Download NLTK Data (VADER) and TextBlob**
+
+**5. Run the chatbot**
 * python main.py
 
 
-### Interactive Commands
+## Interactive Commands
 
 Once the chatbot is running, you can:
 
@@ -158,64 +217,6 @@ Emotional Progression:
 
   Positive → Negative
 
-
-## Module Overview
-
-**1. sentiment_analyzer.py**
-
-Main sentiment analysis engine with: 
-* SentimentAnalyzer: Main analyzer class
-* SentimentResult: Data class for individual message analysis (Tier 2)
-* ConversationSentiment: Data class for conversation analysis (Tier 1)
-* Dual-engine analysis using VADER and TextBlob
-* Trend analysis function
-
-**2. chatbot.py**
-
-Conversation management and response generation:
-* Chatbot: Main chatbot class
-* Conversation history management
-* Stores message metadata and stats
-* Calls the sentiment analyzer for each message
-  
-**3. python main.py**
-
-Interactive CLI interface:
-* ChatbotInterface: Main user-facing interface
-* Interactive command loop
-* Statement and conversation sentiment display
-* Export functionality
-
-**4. tests/**
-
-* Tests for analyzer, chatbot, and edge cases
-* Covers positive/negative/neutral detection
-* Tests trend detection & error handling
-
-### Algorithm Details 
-**Dual-Engine Approach:**
-
-**VADER(Valence Aware Dictionary and sEntiment Reasoner)**
-* Specialized for social media, emojis and informal text
-* Provides compound score and component scores
-* Good for understanding intensity
-
-**TextBlob**
-* Provides polarity (-1 to 1) and subjectivity (0 to 1), better on formal/longer text.
-* Complements VADER for comprehensive analysis
-* Captures subjective language
-
-**Classification Thresholds:**
-* Positive: compound score ≥ 0.05
-* Negative: compound score ≤ -0.05
-* Neutral: -0.05 < compound score < 0.05
-
-**Trend Detection:** 
-* Splits conversation in half
-*  Compares average sentiment of first half vs. second half
-*  Threshold: 0.1 point difference for trend change
-*  Categories: Improving, Declining, Stable
-
  ## Tech Stack
 
 * **Python 3.7+**: Core language
@@ -223,6 +224,7 @@ Interactive CLI interface:
 * **TextBlob**: Polarity and subjectivity analysis
 * **unittest**: Comprehensive test framework
 * **JSON**: Data export and serialization
+
 
 
 
