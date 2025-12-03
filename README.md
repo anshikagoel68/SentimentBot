@@ -164,7 +164,7 @@ Once the chatbot is running, you can:
 
 **You: Hello! I'm excited about this chatbot!**
 
-[Statement-Level Sentiment]
+[TIER 2: Statement-Level Sentiment Analysis]
 
   Sentiment: Positive
   
@@ -178,8 +178,7 @@ Once the chatbot is running, you can:
 
 **You: But I'm worried it won't work properly.**
 
-
-[Statement-Level Sentiment]
+[TIER 2: Statement-Level Sentiment Analysis]
 
   Sentiment: Negative
   
@@ -189,10 +188,7 @@ Once the chatbot is running, you can:
 
 **You: analysis**
 
-
-
-           CONVERSATION-LEVEL ANALYSIS - TIER 1
-
+TIER 1: Conversation-Level Sentiment Analysis
 
 Overall Sentiment: Positive
 
@@ -202,21 +198,26 @@ Average Confidence: 73.76%
 
 Message Breakdown:
 
-  Total Messages: 2
+Total Messages: 2
   
-  Positive: 1
+Positive: 1
   
-  Negative: 1
-  Neutral: 0
+Negative: 1
   
-                 SENTIMENT-LEVEL ANALYSIS - TIER 2
+Neutral: 0
+  
+Final Output:
 
-  Stable - Sentiment remained consistent
+Overall conversation sentiment: Neutral – balanced or mixed sentiment
+
+Sentiment Trend:
+
+Improving - Sentiment became more positive
 
 Emotional Progression:
 
-  Positive → Negative
-
+Negative → Positive   
+  
  ## Tech Stack
 
 * **Python 3.7+**: Core language
@@ -224,6 +225,7 @@ Emotional Progression:
 * **TextBlob**: Polarity and subjectivity analysis
 * **unittest**: Comprehensive test framework
 * **JSON**: Data export and serialization
+
 
 
 
